@@ -1,4 +1,5 @@
 from fastapi import UploadFile,File
+from app.services.chunk_service import chunk_Text
 import pymupdf
 
 async def upload_doc(file:UploadFile = File(...)):
@@ -10,11 +11,11 @@ async def upload_doc(file:UploadFile = File(...)):
     for page in doc:
         extractedText += page.get_text()
 
-    docExtracted = extractedText
-
-    print("____________docExtracted =================>",docExtracted)
-
+    chuks =  chunk_Text(extractedText,500,100)
+    print(chuks)
     return{
         "filename":file.filename,
-        "docExtracted":docExtracted
+        # "extractedText":extractedText,
+        "chuks":chuks,
+        "chuks length":len(chuks)
     }
