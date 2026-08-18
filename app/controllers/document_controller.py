@@ -16,15 +16,17 @@ async def upload_doc(file:UploadFile = File(...)):
 
 
     embedData =   generateEmbedding(chuks)
-    print("embedData =>",embedData)
+
+    print("len(embedData.embeddings) =>",len(embedData.embeddings))
+    print("len(embedData.embeddings[0].values) =>",len(embedData.embeddings[0].values))
 
 
 
-    print(chuks)
+    # print(chuks)
     return{
         "filename":file.filename,
         # "extractedText":extractedText,
-        # "chuks":chuks,
+        "chuks":chuks,
         "chuks length":len(chuks),
         "embedData":embedData
     }
